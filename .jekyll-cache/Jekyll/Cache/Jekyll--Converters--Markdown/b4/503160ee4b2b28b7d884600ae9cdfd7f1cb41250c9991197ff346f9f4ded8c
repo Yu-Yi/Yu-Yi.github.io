@@ -1,6 +1,6 @@
-I"�<h3 id="一楔子大段废话可跳过不看">一：楔子（大段废话，可跳过不看）</h3>
+I"T<h3 id="一楔子大段废话可跳过不看">一：楔子（大段废话，可跳过不看）</h3>
 
-<h5 id="11-独上高楼望尽天涯路">1.1 独上高楼，望尽天涯路</h5>
+<h4 id="11-独上高楼望尽天涯路">1.1 独上高楼，望尽天涯路</h4>
 
 <p>早在19年下半年就开始琢磨，想要实现一个自己的博客，那时候对于Web开发的概念还非常生疏。</p>
 
@@ -18,7 +18,7 @@
 
 <p>儿时想要将自己的文字变成铅字的梦想，如今也算以另一种方式实现了吧？</p>
 
-<h5 id="12-衣带渐宽终不悔为伊消得人憔悴">1.2 衣带渐宽终不悔，为伊消得人憔悴</h5>
+<h4 id="12-衣带渐宽终不悔为伊消得人憔悴">1.2 衣带渐宽终不悔，为伊消得人憔悴</h4>
 
 <p>四月底陆续听到了同学们找到实习的消息，而我还对能否找到工作全无底气，于是想要动手真正实现一个自己的博客项目。</p>
 
@@ -36,7 +36,7 @@
 
 <p><strong>数据，是一切项目的核心资产</strong></p>
 
-<h5 id="13-蓦然回首那人却在灯火阑珊处">1.3 蓦然回首，那人却在灯火阑珊处</h5>
+<h4 id="13-蓦然回首那人却在灯火阑珊处">1.3 蓦然回首，那人却在灯火阑珊处</h4>
 
 <p>在成功找到一份还算不错的工作后，我又对写博客动起了念头。彼时的我，每日周旋于代码之间</p>
 
@@ -60,7 +60,7 @@
 
 <h3 id="二正题">二：正题</h3>
 
-<h5 id="21-github-pages是个啥">2.1 Github pages是个啥</h5>
+<h4 id="21-github-pages是个啥">2.1 Github pages是个啥</h4>
 
 <p>先来看看说明</p>
 
@@ -72,7 +72,7 @@
 
 <p>不再需要花钱购买服务器，你写的网站直接通过官方提供的url就能访问！</p>
 
-<h5 id="22-jeklly又是啥">2.2 jeklly又是啥</h5>
+<h4 id="22-jeklly又是啥">2.2 jeklly又是啥</h4>
 
 <blockquote>
   <p>将纯文本转换为静态博客网站</p>
@@ -98,23 +98,13 @@
   </li>
 </ul>
 
-<h5 id="24-jeklly的安装">2.4 jeklly的安装</h5>
+<h4 id="24-jeklly的安装">2.4 jeklly的安装</h4>
 
 <p>不得不说，很恶心，坑非常之多，我的安装环境是mac，也许windows的坑更多</p>
 
 <ul>
-  <li>
-    <p>jeklly需要Ruby环境的支持，不过mac一般有</p>
-  </li>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>安装RVM：*curl -sSL https://get.rvm.io</td>
-          <td>bash -s stable*</td>
-        </tr>
-      </tbody>
-    </table>
+  <li>jeklly需要Ruby环境的支持，不过mac一般有</li>
+  <li>安装RVM <code class="language-plaintext highlighter-rouge">curl -sSL https://get.rvm.io  | bash -s stable</code>
     <ul>
       <li>sudo vim /etc/hosts ：199.232.28.133 raw.githubusercontent.com  <strong>添加域名解析，不然一直报403端口错误</strong></li>
       <li>source ~/.rvm/scripts/rvm</li>
@@ -146,7 +136,7 @@
 
 <p>到此，jeklly就算安装成功了，jeklly serve后可以在本地http://127.0.0.1:4000/看看运行效果，但默认的模板比较丑陋，可以找个其他人的模板作为自己的博客</p>
 
-<h5 id="25--将模板个人化">2.5  将模板个人化</h5>
+<h4 id="25--将模板个人化">2.5  将模板个人化</h4>
 
 <ul>
   <li>将github上的模板git clone下来，修改config.yml文件，删掉_post文件夹下的原有文件，自己的markdown文件写好后放在文件夹下，名称需要按照XXXX-XX-XX-XX的格式，年-月-日-名称</li>
