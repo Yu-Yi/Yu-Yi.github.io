@@ -1,0 +1,53 @@
+I",<h4 id="一mysql慢查询">一：MySql慢查询</h4>
+
+<p>第一个问题：不知道对应的日志位置</p>
+
+<p>解决方法：通过某些特殊值grep，普通日志中即可看到相关信息</p>
+
+<p>群里的问题我找了一个mysql慢查询的问题着重看了一下，sql执行时间4.49，然后报警。</p>
+
+<p>接口：institutio/getList</p>
+
+<p>把原本的请求重新curl了一遍，可以复现，该条sql查询依然消耗了3、4ms时间</p>
+
+<p>查看其它getList请求对应的这句sql，大部分执行时间是1、2ms</p>
+
+<p>问题SQL：</p>
+
+<p>SELECT * FROM <code class="language-plaintext highlighter-rouge">es_institution_base_78</code>  WHERE (source in (‘0’,’1’)) AND (status in (‘0’,’2’,’3’)) AND (company_id = ‘1125906035845978’) ORDER BY update_time desc</p>
+
+<p>现在的问题</p>
+
+<p>1.rds执行显示只有1ms，是显示不太准确的原因吗，以日志为准？</p>
+
+<p>2.不知道下一步怎么继续排查，从锁、索引的角度？</p>
+
+<p>回复：好几个层面， 一个是数据库层面，比如没有加索引， es_control 表没有加，昨天刚加上，还有一些表的索引建的不好，需要重新优化; 二是代码层面， 比如，为什么一次要查120 条数据， 可以不以不查那么多， 比如 制度的getList 接口，这个刚改正了， 再比如delete 的时候能不能按照主键删除， 昨天也已经改正了</p>
+
+<h4 id="二mis制度查询接口展示车型">二：Mis制度查询接口展示车型</h4>
+
+<ul>
+  <li>php通过foreach改变数组值有讲究：<code class="language-plaintext highlighter-rouge">foreach($datas as $data)</code>无法在循环中改变$datas的值，因为这相当于
+    <ul>
+      <li>必须像下方代码这样，用键值对的形式使用，否则修改的不是本身，仅仅是本身拷贝出来的一个数组</li>
+      <li><a href="https://www.cnblogs.com/wdw31210/p/11076035.html">详细说明</a></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">foreach</span> <span class="p">(</span><span class="nv">$datas</span> <span class="k">as</span> <span class="nv">$data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$car_level_names</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">'car_levels'</span><span class="p">]</span> <span class="k">as</span> <span class="nv">$car_level</span><span class="p">){</span>
+        <span class="nv">$car_level_names</span> <span class="o">=</span> <span class="nv">$car_level_names</span><span class="mf">.</span><span class="s2">" "</span><span class="mf">.</span><span class="nv">$car_level</span><span class="p">[</span><span class="s1">'name'</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="nv">$data</span><span class="p">[</span><span class="s1">'car_levels_names'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$car_level_names</span><span class="p">;</span>
+    <span class="nf">log_notice</span><span class="p">(</span><span class="s2">"yyj_car_name"</span><span class="mf">.</span><span class="nv">$car_level_names</span><span class="p">);</span>
+    <span class="nf">log_notice</span><span class="p">(</span><span class="s2">"yyj_car_name2"</span><span class="mf">.</span><span class="nv">$data</span><span class="p">[</span><span class="s1">'car_levels_names'</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>json_encode必定将中文转成unicode，由于在html文件中的展示使用了这个方法，导致死活不显示中文，调试了半天浪费时间</li>
+</ul>
+:ET
