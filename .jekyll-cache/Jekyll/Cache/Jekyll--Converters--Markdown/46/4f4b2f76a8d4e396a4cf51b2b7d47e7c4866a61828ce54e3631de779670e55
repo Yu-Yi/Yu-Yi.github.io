@@ -1,4 +1,4 @@
-I",<h4 id="一mysql慢查询">一：MySql慢查询</h4>
+I"�<h4 id="一mysql慢查询">一：MySql慢查询</h4>
 
 <p>第一个问题：不知道对应的日志位置</p>
 
@@ -30,6 +30,7 @@
   <li>php通过foreach改变数组值有讲究：<code class="language-plaintext highlighter-rouge">foreach($datas as $data)</code>无法在循环中改变$datas的值，因为这相当于
     <ul>
       <li>必须像下方代码这样，用键值对的形式使用，否则修改的不是本身，仅仅是本身拷贝出来的一个数组</li>
+      <li>或者<code class="language-plaintext highlighter-rouge">foreach($datas as &amp;$val)</code>，使用引用也可以，不过最后要记得unset取消引用</li>
       <li><a href="https://www.cnblogs.com/wdw31210/p/11076035.html">详细说明</a></li>
     </ul>
   </li>

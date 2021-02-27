@@ -1,0 +1,53 @@
+I"�<h4 id="ssh和telnet">SSH和Telnet</h4>
+
+<ul>
+  <li>共同点
+    <ul>
+      <li>都是用于远程连接登录主机</li>
+      <li>远程连接后可以发送指令获取主机上的资源</li>
+      <li>都是应用层协议</li>
+    </ul>
+  </li>
+  <li>不同点
+    <ul>
+      <li>telnet是明文传输，被截取后无需解密就可以得到传输的信息。而ssh采用</li>
+      <li>telnet端口号是23，ssh端口号是22</li>
+      <li>telnet专为局域网设计</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="由于telnet不够安全的特点现在一般用telenet来确认服务是否正常">由于telnet不够安全的特点，现在一般用telenet来确认服务是否正常：</h5>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>telnet 127.0.0.1 8000           //判断本地某个服务是否已经启动
+</code></pre></div></div>
+
+<h4 id="补充知识">补充知识</h4>
+
+<ul>
+  <li>计算机网络协议分层</li>
+</ul>
+
+<p><img src="https://pic4.zhimg.com/v2-696eaee5fc25975cd8dfe9015cfc22a3_b.jpg" alt="img" /></p>
+
+<ul>
+  <li>
+    <p>查看端口是否被占用</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">netstat -a | grep 8899</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>查看端口是否被占用具体信息</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">lsof -i -P | grep -i 8899</code>   mac不支持使用netstat -p 查看具体信息，因为mac重写了unix的文件描述符，导致不能像linux一样通过netstat展示</li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="https://zhuanlan.zhihu.com/p/69862354">netstat完整用法</a></p>
+  </li>
+</ul>
+
+:ET
