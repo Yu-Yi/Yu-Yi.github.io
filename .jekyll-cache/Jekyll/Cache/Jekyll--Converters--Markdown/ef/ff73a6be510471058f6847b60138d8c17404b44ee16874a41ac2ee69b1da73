@@ -1,0 +1,39 @@
+I"V<h4 id="go中的new和make">Go中的new和make</h4>
+
+<h5 id="new">new</h5>
+
+<ul>
+  <li>
+    <p>可以用来初始化泛型，并且返回存储位置（指针），如果需要使用对象，需要加上*</p>
+  </li>
+  <li>会自动给变量赋零值，所以一般map用make初始化！</li>
+  <li>对于struct可以通过&amp;直接表示地址，并且可以灵活赋值，而new只能全部设零值</li>
+</ul>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">people</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">:=</span> <span class="o">*</span><span class="n">people</span>
+    <span class="n">p</span><span class="p">[</span><span class="s">"name"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"yuyingjian"</span> <span class="c">// panic: assignment to entry in nil map</span>
+<span class="p">}</span>
+<span class="c">//因为初始化后的map是nil map</span>
+
+
+<span class="k">type</span> <span class="n">Person</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">Name</span> <span class="kt">string</span>
+	<span class="n">Age</span> <span class="kt">int</span>
+<span class="p">}</span>
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">p1</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">Person</span><span class="p">{</span><span class="n">Age</span><span class="o">:</span> <span class="m">99</span><span class="p">,</span><span class="n">Name</span><span class="o">:</span> <span class="s">"yuyingjian"</span><span class="p">}</span>
+	<span class="n">p2</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="n">Person</span><span class="p">)</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Print</span><span class="p">(</span><span class="o">*</span><span class="n">p1</span><span class="p">)</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Print</span><span class="p">(</span><span class="o">*</span><span class="n">p2</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h5 id="make">make</h5>
+
+<ul>
+  <li>make一般就用来初始化一些特别的类型：<strong>map</strong>、<strong>slicp</strong>、<strong>channel</strong>（map和slice和不可比较的三变量重合了两个）</li>
+  <li>map不会返回指针，如果需要拿到指针，就要用new来吃水花</li>
+</ul>
+:ET

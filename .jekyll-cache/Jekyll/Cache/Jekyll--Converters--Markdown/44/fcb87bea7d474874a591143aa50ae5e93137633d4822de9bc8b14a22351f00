@@ -1,0 +1,90 @@
+I"�<h4 id="go中的结构体比较">Go中的结构体比较</h4>
+
+<h5 id="先了解一个概念golang的变量分为两种可以用直接比较的和不能直接比较的"><strong>先了解一个概念，Golang的变量分为两种，可以用==直接比较的和不能直接比较的</strong></h5>
+
+<ul>
+  <li>可以比较的变量
+    <ul>
+      <li>Integer</li>
+      <li>String</li>
+      <li>Boolean</li>
+      <li>等等</li>
+    </ul>
+  </li>
+  <li>不可以比较的变量
+    <ul>
+      <li>Slice</li>
+      <li>Map</li>
+      <li>Function</li>
+    </ul>
+  </li>
+</ul>
+
+<p>除了不可比较的三种变量，其他都是可以比较的</p>
+
+<p><strong>言归正传，对于Struct的比较，取决于成员变量的类型</strong></p>
+
+<p>如果成员变量存在不可直接比较的类型，那么该Struct可以直接比较，否则不能</p>
+
+<p>比如：</p>
+
+<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">//存在slice，不可直接比较</span>
+<span class="k">type</span> <span class="n">S</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">Name</span>    <span class="kt">string</span>
+    <span class="n">Age</span>     <span class="kt">int</span>
+    <span class="n">Address</span> <span class="o">*</span><span class="kt">int</span>
+   <span class="n">Data</span>   <span class="p">[]</span><span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="n">a</span> <span class="o">:=</span> <span class="n">S</span><span class="p">{</span>
+        <span class="n">Name</span><span class="o">:</span>    <span class="s">"aa"</span><span class="p">,</span>
+        <span class="n">Age</span><span class="o">:</span>     <span class="m">1</span><span class="p">,</span>
+        <span class="n">Address</span><span class="o">:</span> <span class="nb">new</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span>
+      <span class="n">Data</span><span class="o">:</span>   <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">},</span>
+   <span class="p">}</span>
+    <span class="n">b</span> <span class="o">:=</span> <span class="n">S</span><span class="p">{</span>
+        <span class="n">Name</span><span class="o">:</span>    <span class="s">"aa"</span><span class="p">,</span>
+        <span class="n">Age</span><span class="o">:</span>     <span class="m">1</span><span class="p">,</span>
+        <span class="n">Address</span><span class="o">:</span> <span class="nb">new</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span>
+      <span class="n">Data</span><span class="o">:</span>   <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">},</span>
+   <span class="p">}</span>
+<span class="c">//但是可以通过reflect.DeepEqual进行比较</span>
+<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">reflect</span><span class="o">.</span><span class="n">DeepEqual</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+<span class="c">//不可直接比较，会报错</span>
+<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">))</span>
+</code></pre></div></div>
+
+<hr />
+
+<p>对于不同的Struct，可以先进行强制转换，再进行比较</p>
+
+<p>但如果存在不可比较的成员变量，即使强制转换了也不能比较</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>type T2 struct {
+    Name  string
+    Age   int
+    Arr   [2]bool
+    ptr   *int
+}
+
+type T3 struct {
+    Name  string
+    Age   int
+    Arr   [2]bool
+    ptr   *int
+}
+
+func main() {
+    var ss1 T2
+    var ss2 T3
+    // Cannot use 'ss2' (type T3) as type T2 in assignment
+    //ss1 = ss2     // 不同结构体之间是不可以赋值的
+    ss3 := T2(ss2)
+    fmt.Println(ss3==ss1) // true
+}
+</code></pre></div></div>
+
+<p>补充：切片和数组的区别，数组不是切片，Slice不是Array，区别在于Array限定了长度，而Slice没有！所以成员变量里有Array时Struct可以比较，有Slice时不行。</p>
+
+<p><a href="https://www.cnblogs.com/dashu-saycode/p/14286228.html">参考链接：</a></p>
+:ET

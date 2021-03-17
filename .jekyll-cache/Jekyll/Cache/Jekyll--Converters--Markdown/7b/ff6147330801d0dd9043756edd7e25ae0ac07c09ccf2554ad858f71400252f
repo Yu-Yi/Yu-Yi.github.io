@@ -1,4 +1,4 @@
-I"�<h4 id="ssh和telnet">SSH和Telnet</h4>
+I" <h4 id="ssh和telnet">SSH和Telnet</h4>
 
 <ul>
   <li>共同点
@@ -45,9 +45,11 @@
       <li><code class="language-plaintext highlighter-rouge">lsof -i -P | grep -i 8899</code>   mac不支持使用netstat -p 查看具体信息，因为mac重写了unix的文件描述符，导致不能像linux一样通过netstat展示</li>
     </ul>
   </li>
-  <li>
-    <p><a href="https://zhuanlan.zhihu.com/p/69862354">netstat完整用法</a></p>
+  <li>通过telnet查看
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">telnet 127.0.0.1 8899</code></li>
+    </ul>
   </li>
+  <li><a href="https://zhuanlan.zhihu.com/p/69862354">netstat完整用法</a></li>
 </ul>
-
 :ET
